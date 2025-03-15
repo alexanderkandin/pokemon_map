@@ -7,7 +7,7 @@ from django.db.models import ForeignKey
 
 class Pokemon(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='image/', blank=True, null=True, default='default.jpg')
+    img_url = models.ImageField(upload_to='image/', blank=True, null=True, default='default.jpg')
     def __str__(self):
         return self.title
 
