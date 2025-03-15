@@ -59,15 +59,18 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
+    now_local = localtime()
     pokemons = Pokemon.objects.filter(pk=pokemon_id)
     for pokemon in pokemons:
         if pokemon.id == int(pokemon_id):
             requested_pokemon = pokemon
             pokemon_data = {
                 "title_ru": pokemon.title,
-                'img_url': pokemon.img_url.url
+                'img_url': pokemon.img_url.url,
+                "title_en": pokemon.title_en,
+                "title_jp": pokemon.title_jp,
+                "description":pokemon.description
             }
-            print(pokemon_data)
             break
     else:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
