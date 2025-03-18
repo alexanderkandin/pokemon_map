@@ -10,8 +10,9 @@ class Pokemon(models.Model):
     title_en = models.CharField(max_length=200,default="Unknown")
     title_jp = models.CharField(max_length=200,default="Unknown")
     description = models.TextField(blank=True,null=True)
-
     img_url = models.ImageField(upload_to='image/', blank=True, null=True, default='default.jpg')
+    next_evolution = models.ForeignKey("self",on_delete=models.CASCADE,null=True, blank=True, related_name='next_evol')
+    previous_evolution = models.ForeignKey("self", on_delete=models.CASCADE,null=True, blank=True,related_name='previous_evol')
     def __str__(self):
         return self.title
 
@@ -24,9 +25,10 @@ class PokemonEntity(models.Model):
     disappeared_at = models.DateTimeField(null=True, blank=True)
     level = models.IntegerField(default=0)
     health = models.IntegerField(default=0)
-    stregth = models.IntegerField(default=0)
+    strength = models.IntegerField(default=0)
     defence = models.IntegerField(default=0)
     stamina = models.IntegerField(default=0)
+
 
 
     def __str__(self):
