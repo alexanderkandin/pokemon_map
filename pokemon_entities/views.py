@@ -69,7 +69,17 @@ def show_pokemon(request, pokemon_id):
                 'img_url': pokemon.img_url.url,
                 "title_en": pokemon.title_en,
                 "title_jp": pokemon.title_jp,
-                "description":pokemon.description
+                "description":pokemon.description,
+                "next_evolution": {
+                    "title_ru": pokemon.next_evolution.title,
+                    "pokemon_id":pokemon.next_evolution.pk,
+                    "img_url": pokemon.next_evolution.img_url.url
+                } if pokemon.next_evolution else None,
+                "previous_evolution": {
+                    "title_ru": pokemon.previous_evolution.title,
+                    "pokemon_id": pokemon.previous_evolution.pk,
+                    "img_url": pokemon.previous_evolution.img_url.url
+                } if pokemon.previous_evolution else None
             }
             break
     else:
