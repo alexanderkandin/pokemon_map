@@ -60,31 +60,31 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     now_local = localtime()
-    pokemons = Pokemon.objects.filter(pk=pokemon_id)
-    for pokemon in pokemons:
-        if pokemon.id == int(pokemon_id):
-            requested_pokemon = pokemon
-            previous_evolution = pokemon.previous.first()
-            pokemon_data = {
-                "title_ru": pokemon.title,
-                'img_url': pokemon.img_url.url,
-                "title_en": pokemon.title_en,
-                "title_jp": pokemon.title_jp,
-                "description":pokemon.description,
-                "next_evolution": {
-                    "title_ru": pokemon.next_evolution.title,
-                    "pokemon_id":pokemon.next_evolution.pk,
-                    "img_url": pokemon.next_evolution.img_url.url
-                } if pokemon.next_evolution else None,
-                "previous_evolution": {
-                    "title_ru": previous_evolution.title,
-                    "pokemon_id": previous_evolution.pk,
-                    "img_url": previous_evolution.img_url.url
-                } if previous_evolution else None
-            }
-            break
-    else:
+    try:
+        pokemon = Pokemon.objects.get(pk=pokemon_id)
+    except Pokemon.DoesNotExist:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
+
+    requested_pokemon = pokemon
+    previous_evolution = pokemon.previous.first()
+    pokemon_data = {
+        "title_ru": pokemon.title,
+        'img_url': pokemon.img_url.url,
+        "title_en": pokemon.title_en,
+        "title_jp": pokemon.title_jp,
+        "description":pokemon.description,
+        "next_evolution": {
+            "title_ru": pokemon.next_evolution.title,
+            "pokemon_id":pokemon.next_evolution.pk,
+            "img_url": pokemon.next_evolution.img_url.url
+        } if pokemon.next_evolution else None,
+        "previous_evolution": {
+            "title_ru": previous_evolution.title,
+            "pokemon_id": previous_evolution.pk,
+            "img_url": previous_evolution.img_url.url
+        } if previous_evolution else None
+    }
+
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity in requested_pokemon.entities.filter(disappeared_at__gt=now_local,appearance_at__lt=now_local):
