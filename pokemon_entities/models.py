@@ -7,8 +7,8 @@ from django.db.models import ForeignKey
 
 class Pokemon(models.Model):
     title = models.CharField("Имя на русском", max_length=200)
-    title_en = models.CharField("Имя на английском",max_length=200,default="Unknown")
-    title_jp = models.CharField("Имя на японском",max_length=200,default="Unknown")
+    title_en = models.CharField("Имя на английском",max_length=200,blank=True,default="Unknown")
+    title_jp = models.CharField("Имя на японском",max_length=200,blank=True,default="Unknown")
     description = models.TextField("Описание",blank=True,default="")
     img_url = models.ImageField("Изображение",upload_to='image/', blank=True, null=True, default='default.jpg')
     next_evolution = models.ForeignKey("self",on_delete=models.CASCADE,null=True, blank=True, related_name='previous',verbose_name="Следующая эволюция")
@@ -45,22 +45,27 @@ class PokemonEntity(models.Model):
     )
     level = models.IntegerField(
         "Уровень",
+        blank=True,
         default=0
     )
     health = models.IntegerField(
         "Здоровье",
+        blank=True,
         default=0
     )
     strength = models.IntegerField(
         "Сила",
+        blank=True,
         default=0
     )
     defence = models.IntegerField(
         "Защита",
+        blank=True,
         default=0
     )
     stamina = models.IntegerField(
         "Выносливость",
+        blank=True,
         default=0
     )
 
