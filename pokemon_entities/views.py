@@ -64,6 +64,7 @@ def show_pokemon(request, pokemon_id):
     for pokemon in pokemons:
         if pokemon.id == int(pokemon_id):
             requested_pokemon = pokemon
+            previous_evolution = pokemon.previous_evol.first()
             pokemon_data = {
                 "title_ru": pokemon.title,
                 'img_url': pokemon.img_url.url,
@@ -76,10 +77,10 @@ def show_pokemon(request, pokemon_id):
                     "img_url": pokemon.next_evolution.img_url.url
                 } if pokemon.next_evolution else None,
                 "previous_evolution": {
-                    "title_ru": pokemon.previous_evolution.title,
-                    "pokemon_id": pokemon.previous_evolution.pk,
-                    "img_url": pokemon.previous_evolution.img_url.url
-                } if pokemon.previous_evolution else None
+                    "title_ru": previous_evolution.title,
+                    "pokemon_id": previous_evolution.pk,
+                    "img_url": previous_evolution.img_url.url
+                } if previous_evolution else None
             }
             break
     else:

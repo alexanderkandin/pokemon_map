@@ -11,8 +11,7 @@ class Pokemon(models.Model):
     title_jp = models.CharField("Имя на японском",max_length=200,default="Unknown")
     description = models.TextField("Описание",blank=True,null=True)
     img_url = models.ImageField("Изображение",upload_to='image/', blank=True, null=True, default='default.jpg')
-    next_evolution = models.ForeignKey("self",on_delete=models.CASCADE,null=True, blank=True, related_name='next_evol',verbose_name="Следующая эволюция")
-    previous_evolution = models.ForeignKey("self", on_delete=models.CASCADE,null=True, blank=True,related_name='previous_evol',verbose_name="Предыдущая эволюция")
+    next_evolution = models.ForeignKey("self",on_delete=models.CASCADE,null=True, blank=True, related_name='previous_evol',verbose_name="Следующая эволюция")
     def __str__(self):
         return self.title
 
