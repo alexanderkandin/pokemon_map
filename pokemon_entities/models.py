@@ -9,7 +9,7 @@ class Pokemon(models.Model):
     title = models.CharField("Имя на русском", max_length=200)
     title_en = models.CharField("Имя на английском",max_length=200,default="Unknown")
     title_jp = models.CharField("Имя на японском",max_length=200,default="Unknown")
-    description = models.TextField("Описание",blank=True,null=True)
+    description = models.TextField("Описание",blank=True,default="")
     img_url = models.ImageField("Изображение",upload_to='image/', blank=True, null=True, default='default.jpg')
     next_evolution = models.ForeignKey("self",on_delete=models.CASCADE,null=True, blank=True, related_name='previous',verbose_name="Следующая эволюция")
     def __str__(self):
@@ -25,13 +25,11 @@ class PokemonEntity(models.Model):
     )
     lat = models.FloatField(
         "Широта",
-        null=True,
         blank=True,
         default=0
     )
     lon = models.FloatField(
         "Долгота",
-        null=True,
         blank=True,
         default=0
     )
