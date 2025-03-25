@@ -66,7 +66,7 @@ def show_pokemon(request, pokemon_id):
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
 
     requested_pokemon = pokemon
-    previous_evolution = pokemon.previous.first()
+    previous_evolution = pokemon.prev.first()
     pokemon_data = {
         "title_ru": pokemon.title,
         'img_url': pokemon.img.url,
