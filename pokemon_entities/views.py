@@ -63,7 +63,7 @@ def show_pokemon(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon,pk=pokemon_id)
 
     requested_pokemon = pokemon
-    previous_evolution = pokemon.prev.first()
+    next_evolutions = pokemon.next_evolutions.first()
     pokemon_data = {
         "title_ru": pokemon.title,
         'img_url': pokemon.img.url,
@@ -71,15 +71,15 @@ def show_pokemon(request, pokemon_id):
         "title_jp": pokemon.title_jp,
         "description":pokemon.description,
         "next_evolution": {
-            "title_ru": pokemon.next_evolution.title,
-            "pokemon_id":pokemon.next_evolution.pk,
-            "img_url": pokemon.next_evolution.img.url
-        } if pokemon.next_evolution else None,
+            "title_ru": pokemon.previous_evolution.title,
+            "pokemon_id":pokemon.previous_evolution.pk,
+            "img_url": pokemon.previous_evolution.img.url
+        } if pokemon.previous_evolution else None,
         "previous_evolution": {
-            "title_ru": previous_evolution.title,
-            "pokemon_id": previous_evolution.pk,
-            "img_url": previous_evolution.img.url
-        } if previous_evolution else None
+            "title_ru": next_evolutions.title,
+            "pokemon_id": next_evolutions.pk,
+            "img_url": next_evolutions.img.url
+        } if next_evolutions else None
     }
 
 
