@@ -40,7 +40,7 @@ def show_all_pokemons(request):
             add_pokemon(
                 folium_map, pokemon_entity.lat,
                 pokemon_entity.lon,
-                request.build_absolute_uri(pokemon.img_url.url)
+                request.build_absolute_uri(pokemon.img.url)
             )
 
 
@@ -48,7 +48,7 @@ def show_all_pokemons(request):
     for pokemon in pokemons:
         pokemons_on_page.append({
             'pokemon_id': pokemon.id,
-            'img_url': request.build_absolute_uri(pokemon.img_url.url),
+            'img_url': request.build_absolute_uri(pokemon.img.url),
             'title_ru': pokemon.title,
         })
 
@@ -69,19 +69,19 @@ def show_pokemon(request, pokemon_id):
     previous_evolution = pokemon.previous.first()
     pokemon_data = {
         "title_ru": pokemon.title,
-        'img_url': pokemon.img_url.url,
+        'img_url': pokemon.img.url,
         "title_en": pokemon.title_en,
         "title_jp": pokemon.title_jp,
         "description":pokemon.description,
         "next_evolution": {
             "title_ru": pokemon.next_evolution.title,
             "pokemon_id":pokemon.next_evolution.pk,
-            "img_url": pokemon.next_evolution.img_url.url
+            "img_url": pokemon.next_evolution.img.url
         } if pokemon.next_evolution else None,
         "previous_evolution": {
             "title_ru": previous_evolution.title,
             "pokemon_id": previous_evolution.pk,
-            "img_url": previous_evolution.img_url.url
+            "img_url": previous_evolution.img.url
         } if previous_evolution else None
     }
 
@@ -91,7 +91,7 @@ def show_pokemon(request, pokemon_id):
             add_pokemon(
                 folium_map, pokemon_entity.lat,
                 pokemon_entity.lon,
-                request.build_absolute_uri(requested_pokemon.img_url.url)
+                request.build_absolute_uri(requested_pokemon.img.url)
             )
 
 
